@@ -8,10 +8,12 @@ RUN  apk add lighttpd php7-common php7-iconv php7-json php7-gd php7-curl php7-xm
    # php7-mysqli                             \
    # php-mbstring                            \
    # && rm -rf /var/lib/apt/lists/*
-RUN apk add wget mysql mysql-client
 RUN wget https://wordpress.org/latest.tar.gz && \
     tar -xzvf latest.tar.gz && \
     mv wordpress /var/www/html/ && \
     rm -rf latest.tar.gz
 COPY /srcs/wp-config.php /var/www/html/wordpress
+
 EXPOSE 5050
+
+CMD php -s 0.0.0.0:5050 -t /www/

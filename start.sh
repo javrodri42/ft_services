@@ -19,3 +19,19 @@ echo "${green}Starting minikube....${nc}"
 mkdir /goinfre/$USER/.minikube
 ln -s /goinfre/$USER/.minikube ~/.minikube
 minikube start --vm-driver=virtualbox --cpus 3 --memory=3000mb
+
+MINIKUBE_IP=$(minikube ip)
+sleep 1;
+eval $(minikube docker-env)
+
+# Install metallb
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml >> logs.txt
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml >> logs.txt
+kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" >> logs.txt
+
+kubectl apply -f srcs/metallb.yaml >> logs.txt
+
+docker build -t nginx srcs/nginx >> logs.txt
+docker build -t wordpress srcs/wordpress >> logs.txt
+
+kubectl apply -f srcs/nginx.yaml >> logs.txt

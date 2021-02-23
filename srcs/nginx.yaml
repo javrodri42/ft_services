@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+        name: nginx
+        labels:
+                app: nginx
+spec:
+        type: LoadBalancer
+        ports:
+                - name: http
+                  port: 80
+                  targetPort: 80
+                  protocol: TCP
+                - name: https
+                  port: 443
+                  targetPort: 443
+                  protocol: TCP
+                - name: ssh
+                  port: 22
+                  targetPort: 22
+                  protocol: TCP
+        selector:
+                app: nginx
+        loadBalancerIP: 192.168.99.128
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: services-nginx
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        - name: ssh
+          containerPort: 22
+        livenessProbe:
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          tcpSocket:
+            port: 22
+
