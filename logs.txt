@@ -1,95 +1,46 @@
 namespace/metallb-system created
-podsecuritypolicy.policy/controller created
-podsecuritypolicy.policy/speaker created
+podsecuritypolicy.policy/controller configured
+podsecuritypolicy.policy/speaker configured
 serviceaccount/controller created
 serviceaccount/speaker created
-clusterrole.rbac.authorization.k8s.io/metallb-system:controller created
-clusterrole.rbac.authorization.k8s.io/metallb-system:speaker created
+clusterrole.rbac.authorization.k8s.io/metallb-system:controller unchanged
+clusterrole.rbac.authorization.k8s.io/metallb-system:speaker unchanged
 role.rbac.authorization.k8s.io/config-watcher created
 role.rbac.authorization.k8s.io/pod-lister created
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller created
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker created
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller unchanged
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker unchanged
 rolebinding.rbac.authorization.k8s.io/config-watcher created
 rolebinding.rbac.authorization.k8s.io/pod-lister created
 daemonset.apps/speaker created
 deployment.apps/controller created
 secret/memberlist created
 configmap/config created
-deployment.apps/nginx created
-namespace/metallb-system unchanged
-podsecuritypolicy.policy/controller configured
-podsecuritypolicy.policy/speaker configured
-serviceaccount/controller unchanged
-serviceaccount/speaker unchanged
-clusterrole.rbac.authorization.k8s.io/metallb-system:controller unchanged
-clusterrole.rbac.authorization.k8s.io/metallb-system:speaker unchanged
-role.rbac.authorization.k8s.io/config-watcher unchanged
-role.rbac.authorization.k8s.io/pod-lister unchanged
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller unchanged
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker unchanged
-rolebinding.rbac.authorization.k8s.io/config-watcher unchanged
-rolebinding.rbac.authorization.k8s.io/pod-lister unchanged
-daemonset.apps/speaker unchanged
-deployment.apps/controller unchanged
-configmap/config unchanged
-service/nginx created
-deployment.apps/nginx created
-namespace/metallb-system unchanged
-podsecuritypolicy.policy/controller configured
-podsecuritypolicy.policy/speaker configured
-serviceaccount/controller unchanged
-serviceaccount/speaker unchanged
-clusterrole.rbac.authorization.k8s.io/metallb-system:controller unchanged
-clusterrole.rbac.authorization.k8s.io/metallb-system:speaker unchanged
-role.rbac.authorization.k8s.io/config-watcher unchanged
-role.rbac.authorization.k8s.io/pod-lister unchanged
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller unchanged
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker unchanged
-rolebinding.rbac.authorization.k8s.io/config-watcher unchanged
-rolebinding.rbac.authorization.k8s.io/pod-lister unchanged
-daemonset.apps/speaker unchanged
-deployment.apps/controller unchanged
-configmap/config unchanged
 Sending build context to Docker daemon  8.192kB
 Step 1/11 : FROM alpine
-latest: Pulling from library/alpine
-ba3557a56b15: Pulling fs layer
-ba3557a56b15: Verifying Checksum
-ba3557a56b15: Download complete
-ba3557a56b15: Pull complete
-Digest: sha256:a75afd8b57e7f34e4dad8d65e2c7ba2e1975c795ce1ee22fa34f8cf46f96a3be
-Status: Downloaded newer image for alpine:latest
  ---> 28f6e2705743
 Step 2/11 : RUN apk update
- ---> Running in 9622a418347c
+ ---> Running in 095e9faf7c1e
 fetch https://dl-cdn.alpinelinux.org/alpine/v3.13/main/x86_64/APKINDEX.tar.gz
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.13/community/x86_64/APKINDEX.tar.gz
 [91mERROR: https://dl-cdn.alpinelinux.org/alpine/v3.13/main: DNS lookup error
 WARNING: Ignoring https://dl-cdn.alpinelinux.org/alpine/v3.13/main: No such file or directory
-[0mfetch https://dl-cdn.alpinelinux.org/alpine/v3.13/community/x86_64/APKINDEX.tar.gz
+[0m2 errors; 14 distinct packages available
 [91mERROR: https://dl-cdn.alpinelinux.org/alpine/v3.13/community: DNS lookup error
 WARNING: Ignoring https://dl-cdn.alpinelinux.org/alpine/v3.13/community: No such file or directory
-[0m2 errors; 14 distinct packages available
-Sending build context to Docker daemon  6.656kB
+[0mSending build context to Docker daemon  6.656kB
 Step 1/7 : FROM alpine:3.12
-3.12: Pulling from library/alpine
-801bfaa63ef2: Pulling fs layer
-801bfaa63ef2: Verifying Checksum
-801bfaa63ef2: Download complete
-801bfaa63ef2: Pull complete
-Digest: sha256:3c7497bf0c7af93428242d6176e8f7905f2201d8fc5861f45be7a346b5f23436
-Status: Downloaded newer image for alpine:3.12
  ---> 389fef711851
 Step 2/7 : RUN apk update
- ---> Running in 6cd22f3f6207
+ ---> Running in a23151ef1d54
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
-v3.12.3-123-ga980b7f2ce [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
+v3.12.4-2-g8b10ecbd5f [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
 v3.12.3-114-g726dc65b43 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
 OK: 12750 distinct packages available
-Removing intermediate container 6cd22f3f6207
- ---> a7bad6afadb9
+Removing intermediate container a23151ef1d54
+ ---> 3a3c9be8dc45
 Step 3/7 : RUN  apk add lighttpd php7-common php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap php7-ctype php7-dom
- ---> Running in ee6f32f4e3b5
+ ---> Running in 391874271c06
 (1/59) Installing fcgi (2.4.2-r0)
 (2/59) Installing libbz2 (1.0.8-r1)
 (3/59) Installing libev (4.33-r0)
@@ -153,14 +104,14 @@ Executing lighttpd-1.4.55-r1.pre-install
 Executing busybox-1.31.1-r19.trigger
 Executing ca-certificates-20191127-r4.trigger
 OK: 30 MiB in 73 packages
-Removing intermediate container ee6f32f4e3b5
- ---> ea4d0e03799e
+Removing intermediate container 391874271c06
+ ---> c4186cdb204e
 Step 4/7 : RUN wget https://wordpress.org/latest.tar.gz &&     tar -xzvf latest.tar.gz &&     mv wordpress /var/www/html/ &&     rm -rf latest.tar.gz
- ---> Running in 9d6603f916b1
+ ---> Running in 89adbe16d968
 [91mConnecting to wordpress.org (198.143.164.252:443)
 [0m[91msaving to 'latest.tar.gz'
-[0m[91mlatest.tar.gz          0% |                                | 48745  0:05:19 ETA
-[0m[91mlatest.tar.gz         24% |*******                         | 3679k  0:00:06 ETA
+[0m[91mlatest.tar.gz          1% |                                |  159k  0:01:34 ETA
+[0m[91mlatest.tar.gz         47% |***************                 | 7231k  0:00:02 ETA
 [0m[91mlatest.tar.gz        100% |********************************| 14.8M  0:00:00 ETA
 'latest.tar.gz' saved
 [0mwordpress/
@@ -2632,178 +2583,21 @@ wordpress/wp-admin/themes.php
 wordpress/wp-admin/options-reading.php
 wordpress/wp-trackback.php
 wordpress/wp-comments-post.php
-Removing intermediate container 9d6603f916b1
- ---> e17c8b389d5f
+Removing intermediate container 89adbe16d968
+ ---> 051c9601e91f
 Step 5/7 : COPY /srcs/wp-config.php /var/www/html/wordpress
- ---> 2cd6018b7e3e
+ ---> 8ddf1af78dbc
 Step 6/7 : EXPOSE 5050
- ---> Running in 5dd8bb44662c
-Removing intermediate container 5dd8bb44662c
- ---> bdcc56dd1211
+ ---> Running in 82ba82106f5c
+Removing intermediate container 82ba82106f5c
+ ---> 17badefaedc1
 Step 7/7 : CMD php -s 0.0.0.0:5050 -t /www/
- ---> Running in 681ca58c77b5
-Removing intermediate container 681ca58c77b5
- ---> f857f602c920
-Successfully built f857f602c920
-Successfully tagged wordpress:latest
+ ---> Running in 5c8b5e833b03
+Removing intermediate container 5c8b5e833b03
+ ---> 71e285efa9fb
+Successfully built 71e285efa9fb
+Successfully tagged my_wordpress:latest
 service/nginx created
 deployment.apps/nginx created
-namespace/metallb-system unchanged
-podsecuritypolicy.policy/controller configured
-podsecuritypolicy.policy/speaker configured
-serviceaccount/controller unchanged
-serviceaccount/speaker unchanged
-clusterrole.rbac.authorization.k8s.io/metallb-system:controller unchanged
-clusterrole.rbac.authorization.k8s.io/metallb-system:speaker unchanged
-role.rbac.authorization.k8s.io/config-watcher unchanged
-role.rbac.authorization.k8s.io/pod-lister unchanged
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller unchanged
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker unchanged
-rolebinding.rbac.authorization.k8s.io/config-watcher unchanged
-rolebinding.rbac.authorization.k8s.io/pod-lister unchanged
-daemonset.apps/speaker unchanged
-deployment.apps/controller unchanged
-configmap/config unchanged
-Sending build context to Docker daemon  8.192kB
-Step 1/11 : FROM alpine
- ---> 28f6e2705743
-Step 2/11 : RUN apk update
- ---> Running in 5c4b987a673d
-fetch https://dl-cdn.alpinelinux.org/alpine/v3.13/main/x86_64/APKINDEX.tar.gz
-fetch https://dl-cdn.alpinelinux.org/alpine/v3.13/community/x86_64/APKINDEX.tar.gz
-[91mERROR: https://dl-cdn.alpinelinux.org/alpine/v3.13/main: DNS lookup error
-WARNING: Ignoring https://dl-cdn.alpinelinux.org/alpine/v3.13/main: No such file or directory
-[0m[91mERROR: https://dl-cdn.alpinelinux.org/alpine/v3.13/community: DNS lookup error
-WARNING: Ignoring https://dl-cdn.alpinelinux.org/alpine/v3.13/community: No such file or directory
-[0m2 errors; 14 distinct packages available
-Sending build context to Docker daemon  6.656kB
-Step 1/7 : FROM alpine:3.12
- ---> 389fef711851
-Step 2/7 : RUN apk update
- ---> Using cache
- ---> a7bad6afadb9
-Step 3/7 : RUN  apk add lighttpd php7-common php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap php7-ctype php7-dom
- ---> Using cache
- ---> ea4d0e03799e
-Step 4/7 : RUN wget https://wordpress.org/latest.tar.gz &&     tar -xzvf latest.tar.gz &&     mv wordpress /var/www/html/ &&     rm -rf latest.tar.gz
- ---> Using cache
- ---> e17c8b389d5f
-Step 5/7 : COPY /srcs/wp-config.php /var/www/html/wordpress
- ---> Using cache
- ---> 2cd6018b7e3e
-Step 6/7 : EXPOSE 5050
- ---> Using cache
- ---> bdcc56dd1211
-Step 7/7 : CMD php -s 0.0.0.0:5050 -t /www/
- ---> Using cache
- ---> f857f602c920
-Successfully built f857f602c920
-Successfully tagged wordpress:latest
-service/nginx unchanged
-deployment.apps/nginx unchanged
-namespace/metallb-system unchanged
-podsecuritypolicy.policy/controller configured
-podsecuritypolicy.policy/speaker configured
-serviceaccount/controller unchanged
-serviceaccount/speaker unchanged
-clusterrole.rbac.authorization.k8s.io/metallb-system:controller unchanged
-clusterrole.rbac.authorization.k8s.io/metallb-system:speaker unchanged
-role.rbac.authorization.k8s.io/config-watcher unchanged
-role.rbac.authorization.k8s.io/pod-lister unchanged
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller unchanged
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker unchanged
-rolebinding.rbac.authorization.k8s.io/config-watcher unchanged
-rolebinding.rbac.authorization.k8s.io/pod-lister unchanged
-daemonset.apps/speaker unchanged
-deployment.apps/controller unchanged
-configmap/config unchanged
-Sending build context to Docker daemon  8.192kB
-Step 1/11 : FROM alpine
- ---> 28f6e2705743
-Step 2/11 : RUN apk update
- ---> Running in d6f658544307
-fetch https://dl-cdn.alpinelinux.org/alpine/v3.13/main/x86_64/APKINDEX.tar.gz
-fetch https://dl-cdn.alpinelinux.org/alpine/v3.13/community/x86_64/APKINDEX.tar.gz
-[91mERROR: https://dl-cdn.alpinelinux.org/alpine/v3.13/main: DNS lookup error
-WARNING: Ignoring https://dl-cdn.alpinelinux.org/alpine/v3.13/main: No such file or directory
-[0m[91mERROR: https://dl-cdn.alpinelinux.org/alpine/v3.13/community: DNS lookup error
-WARNING: Ignoring https://dl-cdn.alpinelinux.org/alpine/v3.13/community: No such file or directory
-[0m2 errors; 14 distinct packages available
-Sending build context to Docker daemon  6.656kB
-Step 1/7 : FROM alpine:3.12
- ---> 389fef711851
-Step 2/7 : RUN apk update
- ---> Using cache
- ---> a7bad6afadb9
-Step 3/7 : RUN  apk add lighttpd php7-common php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap php7-ctype php7-dom
- ---> Using cache
- ---> ea4d0e03799e
-Step 4/7 : RUN wget https://wordpress.org/latest.tar.gz &&     tar -xzvf latest.tar.gz &&     mv wordpress /var/www/html/ &&     rm -rf latest.tar.gz
- ---> Using cache
- ---> e17c8b389d5f
-Step 5/7 : COPY /srcs/wp-config.php /var/www/html/wordpress
- ---> Using cache
- ---> 2cd6018b7e3e
-Step 6/7 : EXPOSE 5050
- ---> Using cache
- ---> bdcc56dd1211
-Step 7/7 : CMD php -s 0.0.0.0:5050 -t /www/
- ---> Using cache
- ---> f857f602c920
-Successfully built f857f602c920
-Successfully tagged wordpress:latest
-service/nginx created
-deployment.apps/nginx created
-namespace/metallb-system unchanged
-podsecuritypolicy.policy/controller configured
-podsecuritypolicy.policy/speaker configured
-serviceaccount/controller unchanged
-serviceaccount/speaker unchanged
-clusterrole.rbac.authorization.k8s.io/metallb-system:controller unchanged
-clusterrole.rbac.authorization.k8s.io/metallb-system:speaker unchanged
-role.rbac.authorization.k8s.io/config-watcher unchanged
-role.rbac.authorization.k8s.io/pod-lister unchanged
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller unchanged
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker unchanged
-rolebinding.rbac.authorization.k8s.io/config-watcher unchanged
-rolebinding.rbac.authorization.k8s.io/pod-lister unchanged
-daemonset.apps/speaker unchanged
-deployment.apps/controller unchanged
-configmap/config unchanged
-Sending build context to Docker daemon  8.192kB
-Step 1/11 : FROM alpine
- ---> 28f6e2705743
-Step 2/11 : RUN apk update
- ---> Running in 0471435df40b
-fetch https://dl-cdn.alpinelinux.org/alpine/v3.13/main/x86_64/APKINDEX.tar.gz
-[91mERROR: https://dl-cdn.alpinelinux.org/alpine/v3.13/main: DNS lookup error
-WARNING: Ignoring https://dl-cdn.alpinelinux.org/alpine/v3.13/main: No such file or directory
-[0mfetch https://dl-cdn.alpinelinux.org/alpine/v3.13/community/x86_64/APKINDEX.tar.gz
-2 errors; 14 distinct packages available
-[91mERROR: https://dl-cdn.alpinelinux.org/alpine/v3.13/community: DNS lookup error
-WARNING: Ignoring https://dl-cdn.alpinelinux.org/alpine/v3.13/community: No such file or directory
-[0mSending build context to Docker daemon  6.656kB
-Step 1/7 : FROM alpine:3.12
- ---> 389fef711851
-Step 2/7 : RUN apk update
- ---> Using cache
- ---> a7bad6afadb9
-Step 3/7 : RUN  apk add lighttpd php7-common php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap php7-ctype php7-dom
- ---> Using cache
- ---> ea4d0e03799e
-Step 4/7 : RUN wget https://wordpress.org/latest.tar.gz &&     tar -xzvf latest.tar.gz &&     mv wordpress /var/www/html/ &&     rm -rf latest.tar.gz
- ---> Using cache
- ---> e17c8b389d5f
-Step 5/7 : COPY /srcs/wp-config.php /var/www/html/wordpress
- ---> Using cache
- ---> 2cd6018b7e3e
-Step 6/7 : EXPOSE 5050
- ---> Using cache
- ---> bdcc56dd1211
-Step 7/7 : CMD php -s 0.0.0.0:5050 -t /www/
- ---> Using cache
- ---> f857f602c920
-Successfully built f857f602c920
-Successfully tagged wordpress:latest
-service/nginx created
-deployment.apps/nginx created
+service/wordpress created
+deployment.apps/wordpress created
