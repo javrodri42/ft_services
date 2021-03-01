@@ -56,8 +56,8 @@ fi
 if [[ $(minikube status | grep -c "Running") = 0 ]]
 then
 	echo "${green}Starting minikube....${nc}"
-	mkdir /goinfre/$USER/.minikube
-	ln -s /goinfre/$USER/.minikube ~/.minikube
+	#mkdir /goinfre/$USER/.minikube
+	#ln -s /goinfre/$USER/.minikube ~/.minikube
 	minikube start --vm-driver=virtualbox --cpus 3 --memory 4000 --extra-config=apiserver.service-node-port-range=1-35000
 	minikube addons enable metrics-server
 	minikube addons enable ingress
