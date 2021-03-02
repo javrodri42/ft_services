@@ -1,0 +1,13 @@
+FROM alpine:3.12
+
+RUN 	apk add mariadb mariadb-client openrc && \
+	mkdir -p /run/mysqld
+
+COPY		/srcs/my.cnf		/etc/
+#COPY		/srcs/wordpress.sql	/
+COPY		/srcs/start.sh		/
+
+
+EXPOSE 3306
+
+#ENTRYPOINT	sh start.sh

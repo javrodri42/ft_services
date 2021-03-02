@@ -108,3 +108,20 @@ deployment.apps/controller created
 secret/memberlist created
 configmap/config created
 namespace "metallb-system" deleted
+namespace/metallb-system created
+podsecuritypolicy.policy/controller configured
+podsecuritypolicy.policy/speaker configured
+serviceaccount/controller created
+serviceaccount/speaker created
+clusterrole.rbac.authorization.k8s.io/metallb-system:controller unchanged
+clusterrole.rbac.authorization.k8s.io/metallb-system:speaker unchanged
+role.rbac.authorization.k8s.io/config-watcher created
+role.rbac.authorization.k8s.io/pod-lister created
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller unchanged
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker unchanged
+rolebinding.rbac.authorization.k8s.io/config-watcher created
+rolebinding.rbac.authorization.k8s.io/pod-lister created
+daemonset.apps/speaker created
+deployment.apps/controller created
+secret/memberlist created
+configmap/config created

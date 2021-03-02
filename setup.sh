@@ -44,13 +44,13 @@ fi
 
 eval $(minikube docker-env)
 
-echo "${green}Starting MetalLB...${nc}"
+echo "${blue}Starting MetalLB...${nc}"
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml >> logs.txt
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml >> logs.txt
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" >> logs.txt
 kubectl apply -f srcs/metallb.yaml >> logs.txt
-echo "${green_b}MetalLB OK${nc}"
+echo "${green}MetalLB OK${nc}"
 
-echo "${green}Deploying nginx${nc}"
+echo "${blue}Deploying nginx${nc}"
 kubectl apply -f srcs/nginx.yaml
-echo "${green_b}Nginx OK${nc}"
+echo "${green}Nginx OK${nc}"
