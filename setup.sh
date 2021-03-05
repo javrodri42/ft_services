@@ -19,11 +19,13 @@ clean (){
 	if [[ $(kubectl get services) ]]
         then
                 kubectl delete service --all
-        fi
-        kubectl delete deployment --all
-        kubectl delete ingress --all
-        kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml >> logs.txt
-        echo "${nc}${green_b}-Cleaned-${nc}"
+     fi
+     kubectl delete deployment --all
+     kubectl delete ingress --all
+     kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml >> logs.txt
+ 	 docker system prune -af
+	 echo "${nc}${green_b}-Cleaned-${nc}"
+
 }
 
 if [[ $1 = "clean" ]]
@@ -36,7 +38,7 @@ fi
 if [[ $(minikube status | grep -c "Running") = 0 ]]
 then
 	echo "${green}Starting minikube....${nc}"
-	minikube start --vm-driver=virtualbox --cpus 3 --memory=3000mb
+	minikube start --driver=virtualbox
 	minikube addons enable metrics-server
 	minikube addons enable ingress
 	minikube addons enable dashboard
@@ -51,6 +53,13 @@ kubectl create secret generic -n metallb-system memberlist --from-literal=secret
 kubectl apply -f srcs/metallb.yaml >> logs.txt
 echo "${green}MetalLB OK${nc}"
 
+docker build -t nginx       ./srcs/nginx
+#docker build -t phpmyadmin  ./srcs/phpmyadmin
+docker build -t mysql       ./srcs/mysql
+
+
 echo "${blue}Deploying nginx${nc}"
+#kubectl apply -f srcs/phpmyadmin.xyaml
 kubectl apply -f srcs/nginx.yaml
+kubectl apply -f srcs/mysql.yaml
 echo "${green}Nginx OK${nc}"
