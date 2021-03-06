@@ -55,11 +55,14 @@ echo "${green}MetalLB OK${nc}"
 
 docker build -t nginx       ./srcs/nginx
 #docker build -t phpmyadmin  ./srcs/phpmyadmin
-docker build -t mysql       ./srcs/mysql
 
+docker build -t mysql       ./srcs/mysql
 
 echo "${blue}Deploying nginx${nc}"
 #kubectl apply -f srcs/phpmyadmin.xyaml
 kubectl apply -f srcs/nginx.yaml
 kubectl apply -f srcs/mysql.yaml
 echo "${green}Nginx OK${nc}"
+sleep 7
+kubectl get services
+kubectl get pod
