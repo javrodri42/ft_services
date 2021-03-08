@@ -53,15 +53,15 @@ kubectl create secret generic -n metallb-system memberlist --from-literal=secret
 kubectl apply -f srcs/metallb.yaml >> logs.txt
 echo "${green}MetalLB OK${nc}"
 
-docker build -t nginx       ./srcs/nginx
+docker build -t nginx       ./srcs/nginx >> logs.txt
 #docker build -t phpmyadmin  ./srcs/phpmyadmin
 
-docker build -t mysql       ./srcs/mysql
+docker build -t mysql       ./srcs/mysql >> logs.txt
 
 echo "${blue}Deploying nginx${nc}"
 #kubectl apply -f srcs/phpmyadmin.xyaml
-kubectl apply -f srcs/nginx.yaml
-kubectl apply -f srcs/mysql.yaml
+kubectl apply -f srcs/nginx.yaml >> logs.txt
+kubectl apply -f srcs/mysql.yaml >> logs.txt
 echo "${green}Nginx OK${nc}"
 sleep 7
 kubectl get services
