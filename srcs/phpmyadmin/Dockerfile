@@ -1,7 +1,20 @@
-FROM alpine:3.12.3
+FROM alpine:3.12
 
-RUN apk update && apk add nginx && apk add wget
-RUN apk add openrc && rc-update add nginx default
-RUN rc-status && touch/openrc/softlevel
+RUN apk add --no-cache phpmyadmin nginx php7 php7-mysqli php7-json php7-mbstring php7-opcache
 
+RUN adduser -D -g 'www' www && mkdir -p /run/nginx www &&\
+	chown -R www:www /var/lib/nginx &&\
+	chown -R www:www /www
+
+RUN mv /usr/share/webapps/phpmyadmin /www/
+RUN mkdir -p /etc/phpmyadmin/tmp
+
+
+COPY /srcs/nginx.conf /etc/nginx/nginx.conf
+COPY /srcs/config.inc.php /etc/phpmyadmin/config.inc.php
+COPY /srcs/execute.sh ./
+
+EXPOSE 5000
+
+ENTRYPOINT sh execute.sh
 
