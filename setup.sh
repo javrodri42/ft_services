@@ -35,7 +35,7 @@ then
 	exit
 fi
 
-if [[ $(minikube status | grep -c "Running") = 0 ]]
+if [ $(minikube status | grep -c "Running") = 0 ]
 then
 	echo "${green}Starting minikube....${nc}"
 	minikube start --driver=virtualbox
@@ -51,18 +51,23 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manife
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml >> logs.txt
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" >> logs.txt
 kubectl apply -f srcs/metallb.yaml >> logs.txt
+
 echo "${green}MetalLB OK${nc}"
-
+echo "${blue}Creating images....${nc}"
 docker build -t nginx       ./srcs/nginx >> logs.txt
-#docker build -t phpmyadmin  ./srcs/phpmyadmin
-
+docker build -t phpmyadmin  ./srcs/phpmyadmin >> logs.txt
+docker build -t wordpress   ./srcs/wordpress >> logs.txt
 docker build -t mysql       ./srcs/mysql >> logs.txt
+echo "${green}OK${nc}"
 
-echo "${blue}Deploying nginx${nc}"
-#kubectl apply -f srcs/phpmyadmin.xyaml
+echo "${blue}Deploying services....${nc}"
+kubectl apply -f srcs/phpmyadmin.yaml >> logs.txt
 kubectl apply -f srcs/nginx.yaml >> logs.txt
 kubectl apply -f srcs/mysql.yaml >> logs.txt
-echo "${green}Nginx OK${nc}"
+kubectl apply -f srcs/wordpress.yaml >> logs.txt
+
+echo "${green}OK${nc}"
 sleep 7
+
 kubectl get services
 kubectl get pod
