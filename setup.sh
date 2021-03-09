@@ -23,8 +23,10 @@ clean (){
      kubectl delete deployment --all
      kubectl delete ingress --all
      kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml >> logs.txt
+	 minikube delete
+	 killall -TERM kubectl minikube VBoxHeadless
  	 docker system prune -af
-	 echo "${nc}${green_b}-Cleaned-${nc}"
+	 echo "${nc}${green}-Cleaned-${nc}"
 
 }
 
@@ -33,6 +35,13 @@ then
 	eval $(minikube docker-env)
 	clean
 	exit
+fi
+
+if [[ $1 = "restart"  ]]
+then
+  	echo "${blue}Restarting...${nc}"
+	eval $(minikube docker-env)
+	clean
 fi
 
 if [ $(minikube status | grep -c "Running") = 0 ]
@@ -52,7 +61,7 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manife
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" >> logs.txt
 kubectl apply -f srcs/metallb.yaml >> logs.txt
 
-echo "${green}MetalLB OK${nc}"
+echo "${green}OK${nc}"
 echo "${blue}Creating images....${nc}"
 docker build -t nginx       ./srcs/nginx >> logs.txt
 docker build -t phpmyadmin  ./srcs/phpmyadmin >> logs.txt
@@ -60,14 +69,17 @@ docker build -t wordpress   ./srcs/wordpress >> logs.txt
 docker build -t mysql       ./srcs/mysql >> logs.txt
 echo "${green}OK${nc}"
 
+sleep 2 
 echo "${blue}Deploying services....${nc}"
-kubectl apply -f srcs/phpmyadmin.yaml >> logs.txt
-kubectl apply -f srcs/nginx.yaml >> logs.txt
-kubectl apply -f srcs/mysql.yaml >> logs.txt
-kubectl apply -f srcs/wordpress.yaml >> logs.txt
+kubectl apply -f srcs/nginx.yaml 
+kubectl apply -f srcs/phpmyadmin.yaml
+kubectl apply -f srcs/mysql.yaml 
+kubectl apply -f srcs/wordpress.yaml
 
-echo "${green}OK${nc}"
+echo "${green}OK"
 sleep 7
 
 kubectl get services
+echo "--------------------------------------------------------------------------------------"
 kubectl get pod
+

@@ -41,4 +41,4 @@ spec:
               protocol: TCP
               targetPort: 443
         type: LoadBalancer
-        loadBalancerIP: 192.168.99.124
+        loadBalancerIP: 192.168.99.125
