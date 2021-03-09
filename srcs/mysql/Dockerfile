@@ -6,11 +6,11 @@ RUN 	apk add mysql mariadb mariadb-client openrc && \
 
 COPY		/srcs/my.cnf		/etc/
 COPY		/srcs/wordpress.sql	/
-COPY		/srcs/start.sh		/
+COPY		/srcs/execute.sh		/
 COPY    	/srcs/init_file      /
 
 
-RUN chmod 777 start.sh
+RUN chmod 777 execute.sh
 
 EXPOSE 3306
 
