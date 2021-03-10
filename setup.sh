@@ -79,11 +79,12 @@ eval $(minikube docker-env)
 
 echo "${green}OK${nc}"
 echo "${blue}Creating images....${nc}"
-docker build -t nginx       ./srcs/nginx >> logs.txt
-docker build -t phpmyadmin  ./srcs/phpmyadmin >> logs.txt
-docker build -t wordpress   ./srcs/wordpress >> logs.txt
-docker build -t mysql       ./srcs/mysql >> logs.txt
-docker build -t ftps        ./srcs/ftps >> logs.txt
+docker build -t nginx       ./srcs/nginx 		>> logs.txt
+docker build -t phpmyadmin  ./srcs/phpmyadmin 	>> logs.txt
+docker build -t wordpress   ./srcs/wordpress 	>> logs.txt
+docker build -t mysql       ./srcs/mysql 		>> logs.txt
+docker build -t ftps        ./srcs/ftps 		>> logs.txt
+docker build -t influxdb    ./srcs/influxdb 	>> logs.txt
 echo "${green}OK${nc}"
 
 sleep 2 
@@ -95,6 +96,7 @@ kubectl apply -f srcs/nginx.yaml
 kubectl apply -f srcs/mysql.yaml 
 kubectl apply -f srcs/phpmyadmin.yaml
 kubectl apply -f srcs/wordpress.yaml
+kubectl apply -f srcs/influxdb.yaml
 
 
 echo "${green}OK"
