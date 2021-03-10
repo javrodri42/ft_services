@@ -12,6 +12,9 @@ RUN         mv /usr/share/webapps/phpmyadmin /www/
 RUN         mkdir  -p  /etc/phpmyadmin/tmp \
             && chmod 777 /etc/phpmyadmin/tmp
 
+RUN         mkdir  -p  /www/phpmyadmin/tmp \
+            && chmod 777 /www/phpmyadmin/tmp
+
 #COPY 		/srcs/telegraf.conf /etc/telegraf/
 COPY 	    /srcs/nginx.conf /etc/nginx/nginx.conf
 COPY        /srcs/config.inc.php /etc/phpmyadmin/config.inc.php
