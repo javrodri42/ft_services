@@ -85,6 +85,7 @@ docker build -t wordpress   ./srcs/wordpress 	>> logs.txt
 docker build -t mysql       ./srcs/mysql 		>> logs.txt
 docker build -t ftps        ./srcs/ftps 		>> logs.txt
 docker build -t influxdb    ./srcs/influxdb 	>> logs.txt
+docker build -t grafana    ./srcs/grafana 		>> logs.txt
 echo "${green}OK${nc}"
 
 sleep 2 
@@ -92,6 +93,8 @@ echo "${blue}Deploying services....${nc}"
 kubectl apply -f srcs/metallb.yaml
 kubectl apply -f srcs/ftps-config.yaml
 kubectl apply -f srcs/ftps.yaml
+kubectl apply -f srcs/grafana.yaml
+kubectl apply -f srcs/grafana-config.yaml
 kubectl apply -f srcs/nginx.yaml 
 kubectl apply -f srcs/mysql.yaml 
 kubectl apply -f srcs/phpmyadmin.yaml

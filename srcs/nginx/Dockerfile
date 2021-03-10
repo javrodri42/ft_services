@@ -17,11 +17,11 @@ RUN rm /etc/nginx/nginx.conf
 
 RUN		ssh-keygen -A
 
-COPY nginx.conf         /etc/nginx/
-COPY /index.html		/var/www/index.html
-COPY /ssl_params.conf		/etc/nginx/
-COPY /execute.sh			/
-COPY telegraf.conf			/etc/telegraf/
+COPY srcs/nginx.conf         /etc/nginx/
+COPY srcs/index.html		/var/www/index.html
+COPY srcs/ssl_params.conf		/etc/nginx/
+COPY srcs/execute.sh			/
+COPY srcs/telegraf.conf			/etc/telegraf/
 
 EXPOSE 80 443 
 
