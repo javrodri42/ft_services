@@ -8,7 +8,24 @@ green_b=$'\e[0;92;102m'
 blue=$'\e[0;34;40m'
 cyan=$'\e[0;1;36;40m'
 magenta=$'\e[0;1;95;40m'
+yellow=$'\e[0;92;33m'
 nc=$'\e[0m'
+
+testftps (){
+	eval $(minikube docker-env)
+  	echo "${yellow}Testing ftps...${nc}"
+  	echo "${yellow}Upload file${nc}"
+	sleep 1
+  	echo "${magenta}pass: user${nc}"
+	curl ftp://192.168.99.125:21 --ssl -k --user user -T srcs/test.test
+	echo "--------------------------------------------------------------------------------------"
+	sleep 1
+	echo "${yellow}Download file${nc}"
+  	echo "${magenta}pass: user${nc}"
+	curl ftp://192.168.99.125:21/setup.sh --ssl -k --user user -o downloaded.test.sh
+	echo "${yellow}---TEST FINISHED---${nc}"
+
+}
 
 clean (){
 	echo "${red}Cleaning Services...."
@@ -30,10 +47,9 @@ clean (){
 
 }
 
-if [[ $1 = "clean" ]]
+if [[ $1 = "ftps" ]]
 then
-	eval $(minikube docker-env)
-	clean
+	testftps
 	exit
 fi
 
@@ -51,15 +67,15 @@ then
 	minikube addons enable metrics-server
 	minikube addons enable ingress
 	minikube addons enable dashboard
+	minikube addons enable metallb
 fi
 
 eval $(minikube docker-env)
 
-echo "${blue}Starting MetalLB...${nc}"
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml >> logs.txt
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml >> logs.txt
-kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" >> logs.txt
-kubectl apply -f srcs/metallb.yaml >> logs.txt
+#echo "${blue}Starting MetalLB...${nc}"
+#kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
+#kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
+#kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 
 echo "${green}OK${nc}"
 echo "${blue}Creating images....${nc}"
@@ -67,14 +83,19 @@ docker build -t nginx       ./srcs/nginx >> logs.txt
 docker build -t phpmyadmin  ./srcs/phpmyadmin >> logs.txt
 docker build -t wordpress   ./srcs/wordpress >> logs.txt
 docker build -t mysql       ./srcs/mysql >> logs.txt
+docker build -t ftps        ./srcs/ftps >> logs.txt
 echo "${green}OK${nc}"
 
 sleep 2 
 echo "${blue}Deploying services....${nc}"
+kubectl apply -f srcs/metallb.yaml
+kubectl apply -f srcs/ftps-config.yaml
+kubectl apply -f srcs/ftps.yaml
 kubectl apply -f srcs/nginx.yaml 
-kubectl apply -f srcs/phpmyadmin.yaml
 kubectl apply -f srcs/mysql.yaml 
+kubectl apply -f srcs/phpmyadmin.yaml
 kubectl apply -f srcs/wordpress.yaml
+
 
 echo "${green}OK"
 sleep 7
