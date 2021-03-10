@@ -1,4 +1,4 @@
-#telegraf &
+telegraf &
 # Setup MySQL
 /usr/bin/mysql_install_db --datadir=/var/lib/mysql
 
