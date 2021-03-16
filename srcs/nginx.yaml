@@ -20,7 +20,10 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 80
+          name: http
         - containerPort: 443
+          name: https
+
 ---
     apiVersion: v1
     kind: Service

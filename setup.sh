@@ -12,16 +12,20 @@ yellow=$'\e[0;92;33m'
 nc=$'\e[0m'
 
 clear
-echo ${green}
-echo "   __ _                         _                 "
-echo "  / _| |                       (_)                "
-echo " | |_| |_   ___  ___ _ ____   ___  ___ ___  ___   "
-echo " |  _| __| / __|/ _ \ '__\ \ / / |/ __/ _ \/ __|  "
-echo " | | | |_  \__ \  __/ |   \ V /| | (_|  __/\__ \  "
-echo " |_|  \__| |___/\___|_|    \_/ |_|\___\___||___/  "
-echo "        ______                                    "
-echo "---------------------------------------------------"
-echo ${nc}
+
+header (){
+	clear
+	echo ${green}
+	echo "   __ _                         _                 "
+	echo "  / _| |                       (_)                "
+	echo " | |_| |_   ___  ___ _ ____   ___  ___ ___  ___   "
+	echo " |  _| __| / __|/ _ \ '__\ \ / / |/ __/ _ \/ __|  "
+	echo " | | | |_  \__ \  __/ |   \ V /| | (_|  __/\__ \  "
+	echo " |_|  \__| |___/\___|_|    \_/ |_|\___\___||___/  "
+	echo "        ______                                    "
+	echo "---------------------------------------------------"
+	echo ${nc}
+}
 
 testftps (){
 	eval $(minikube docker-env)
@@ -34,7 +38,7 @@ testftps (){
 	sleep 1
 	echo "${yellow}Download file${nc}"
   	echo "${magenta}pass: user${nc}"
-	curl ftp://192.168.99.125:21/setup.sh --ssl -k --user user -o downloaded.test.sh
+	curl ftp://192.168.99.125:21/test.test --ssl -k --user user -o downloaded.test.sh
 	echo "${yellow}---TEST FINISHED---${nc}"
 
 }
@@ -62,12 +66,14 @@ clean (){
 
 if [[ $1 = "ftps" ]]
 then
+	header
 	testftps
 	exit
 fi
 
 if [[ $1 = "restart"  ]]
 then
+	header
   	echo "${blue}Restarting...${nc}"
 	eval $(minikube docker-env)
 	echo "${green}---DONE---${nc}"
@@ -76,6 +82,7 @@ fi
 
 if [[ $1 = "clean"  ]]
 then
+	header
   	echo "${blue}Cleaning...${nc}"
 	eval $(minikube docker-env)
 	clean
@@ -85,14 +92,16 @@ fi
 
 if [ $(minikube status | grep -c "Running") = 0 ]
 then
+	header
 	echo "${green}Starting minikube....${nc}"
-	minikube start --driver=virtualbox			>> logs.txt   
-	minikube addons enable metrics-server		>> logs.txt
-	minikube addons enable ingress				>> logs.txt
-	minikube addons enable dashboard			>> logs.txt
-	minikube addons enable metallb				>> logs.txt
+	minikube start --vm-driver=virtualbox --cpus 3 --memory=3000mb			>> logs.txt   
+	minikube addons enable metrics-server									>> logs.txt
+	minikube addons enable ingress											>> logs.txt
+	minikube addons enable dashboard										>> logs.txt
+	minikube addons enable metallb											>> logs.txt
 	echo "${green}---DONE---${nc}"
 else
+header
 	echo "${green}Minikube already started${nc}"
 fi
 
